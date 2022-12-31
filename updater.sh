@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Script to update common linux distros
+#Script to update common linux distros, recommend running as a cronjob.
 #By Jose Oregon
 
 release_file=/etc/os-release
