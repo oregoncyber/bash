@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#Script to update common linux distros
+#By Jose Oregon
+
 release_file=/etc/os-release
 logfile=/var/log/updater.log
 errorlog=/var/log/updater_errors.log
@@ -8,7 +11,7 @@ now=$(date)
 check_exit_status() {
  if [ $? -eq 0 ]
  then
-     echo "^---------$now----------^" >> $logfile
+     echo "^---------$now----------^" >> $logfile #makes logs more readable
      echo "                         " >> $logfile
      echo "Updating Complete"
      exit
