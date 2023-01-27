@@ -1,0 +1,36 @@
+#!/bin/bash
+#Simple linux box enumeration
+#by Jose Oregon
+
+file=enum_results.txt
+os=/etc/os-release
+
+echo "Enter the IP range to scan in CIDR:"
+read ScanRange
+
+echo "Enter the first port to scan:"
+read FirstPort
+
+echo "Enter the last port to scan:"
+read LastPort
+
+nmap -sT $ScanRange -p $FirstPort-$LastPort | grep -i -A 10 "open" > $file 
+
+simple_enum(){
+  echo "----------arp results--------------------"
+  arp -a
+  echo "--------whoami results-------------------"
+  whoami
+  echo "-----------os results--------------------"
+  cat $os 
+  echo "------------sudo-------------------------"
+  sudo -l
+  echo "------------routes-----------------------"
+  route
+}
+
+simple_enum >> $file
+
+cat enum_results.txt
+
+echo "Scan saved to enum_results.txt"
