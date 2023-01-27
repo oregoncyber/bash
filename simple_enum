@@ -17,15 +17,17 @@ read LastPort
 nmap -sT $ScanRange -p $FirstPort-$LastPort | grep -i -A 10 "open" > $file 
 
 simple_enum(){
+  echo "--------- whoami results------------------"
+  whoami
   echo "----------arp results--------------------"
   arp -a
-  echo "--------whoami results-------------------"
-  whoami
-  echo "-----------os results--------------------"
+  echo "-------------ip a-------------------------"
+  ip a
+  echo "-----------os results---------------------"
   cat $os 
-  echo "------------sudo-------------------------"
+  echo "--------------sudo-------------------------"
   sudo -l
-  echo "------------routes-----------------------"
+  echo "-------------routes------------------------"
   route
 }
 
