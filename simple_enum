@@ -1,9 +1,10 @@
 #!/bin/bash
 #Simple linux box enumeration
 #by Jose Oregon
+#!/bin/bash
 
-file=enum_results.txt
-os=/etc/os-release
+file=check_scan.txt
+file2=enum_results.txt
 
 echo "Enter the IP range to scan in CIDR:"
 read ScanRange
@@ -14,25 +15,45 @@ read FirstPort
 echo "Enter the last port to scan:"
 read LastPort
 
-nmap -sT $ScanRange -p $FirstPort-$LastPort | grep -i -A 10 "open" > $file 
+nmap -sT $ScanRange -p $FirstPort-$LastPort | grep -i -e "for" -e "open" > $file
+cat $file > $file2
 
-simple_enum(){
-  echo "--------- whoami results------------------"
-  whoami
-  echo "----------arp results--------------------"
-  arp -a
-  echo "-------------ip a-------------------------"
-  ip a
-  echo "-----------os results---------------------"
-  cat $os 
-  echo "--------------sudo-------------------------"
-  sudo -l
-  echo "-------------routes------------------------"
-  route
+check_status(){
+if grep "open" $file
+then
+   echo "success"
+else 
+   echo "" > $file2
+   echo "Scan completed no open ports" > $file2
+   echo -e ' \t '
+ fi
 }
 
-simple_enum >> $file
+simple_enum(){
+  echo "--------Whoami results-------------------"
+  whoami
+  echo -e ' \t '
+  echo "----------ARP results--------------------"
+  arp -a
+  echo -e ' \t '
+  echo "-----------OS results--------------------"
+  cat /etc/os-release
+  echo -e ' \t '
+  echo "------------Sudo-------------------------"
+  sudo -l
+  echo -e ' \t '
+  echo "------------Routes-----------------------"
+  route
+  echo -e ' \t '
+}
 
-cat enum_results.txt
+check_status
+simple_enum >> $file2
 
+echo "Scanning.."
+echo -e ' \t '
+rm $file
+cat $file2
+echo -e ' \t '
 echo "Scan saved to enum_results.txt"
+                                         
