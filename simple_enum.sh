@@ -1,7 +1,6 @@
 #!/bin/bash
 #Simple linux box enumeration
 #by Jose Oregon
-#!/bin/bash
 
 file=check_scan.txt
 file2=enum_results.txt
@@ -21,11 +20,10 @@ cat $file > $file2
 check_status(){
 if grep "open" $file
 then
-   echo "success"
+   echo "Found open ports"
 else 
    echo "" > $file2
    echo "Scan completed no open ports" > $file2
-   echo -e ' \t '
  fi
 }
 
@@ -42,7 +40,10 @@ simple_enum(){
   echo "------------Sudo-------------------------"
   sudo -l
   echo -e ' \t '
-  echo "------------Routes-----------------------"
+  echo "-------------ip a results-----------------"
+  echo ip a
+  echo -e ' \t '
+  echo "------------Routes------------------------"
   route
   echo -e ' \t '
 }
