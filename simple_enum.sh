@@ -38,7 +38,7 @@ simple_enum(){
   whoami
   echo -e ' \t '
   echo "----------ARP results--------------------"
-  arp -a
+  ip n
   echo -e ' \t '
   echo "-----------OS results--------------------"
   cat /etc/os-release
@@ -47,10 +47,10 @@ simple_enum(){
   sudo -l
   echo -e ' \t '
   echo "-------------ip a results-----------------"
-  echo ip a
+  ip a
   echo -e ' \t '
   echo "------------Routes------------------------"
-  route
+  ip r
   echo -e ' \t '
 }
 check_status
